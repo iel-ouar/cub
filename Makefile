@@ -1,7 +1,7 @@
 NAME = cub
 CC = cc
 RM = rm -rf
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 LINK_FLAGS = -lmlx -lXext -lX11
 
 CFILES = main.c	split.c	tools.c	\
