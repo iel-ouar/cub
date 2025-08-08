@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:04:28 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/08/05 13:40:13 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/08/07 18:30:56 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 
 typedef struct s_data
 {
+	int		flag;
+	int		counter;
 	int		count_element;
 	char	*north_tex;
 	char	*west_tex;
