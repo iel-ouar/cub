@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:04:28 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/08/07 18:30:56 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/08/10 16:45:14 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ typedef struct s_data
 	char	*west_tex;
 	char	*south_tex;
 	char	*east_tex;
-	int		floor_colr[3];
-	int		ceiling_colr[3];
+	int		*floor_colr;
+	int		*ceiling_colr;
 	int		NO;
 	int		WE;
 	int		SO;

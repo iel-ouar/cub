@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:13:48 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/08/07 20:02:23 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/08/10 18:04:39 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,11 @@ void	check_last_lines(char *str, int last)
 	}
 }
 
+void	problem_element(t_data *data)
+{
+	data->count_element = -1;
+}
+
 int	count_not_espace(char *line)
 {
 	int i;
@@ -82,31 +87,31 @@ int	count_not_espace(char *line)
 	return (count);
 }
 
-char	*ft_substr(char *s, unsigned int start, size_t len)
-{
-	char	*tmp;
-	size_t	i;
-	size_t	l;
+// char	*ft_substr(char *s, unsigned int start, size_t len)
+// {
+// 	char	*tmp;
+// 	size_t	i;
+// 	size_t	l;
 
-	if (!s)
-		return (NULL);
-	l = ft_strlen(s);
-	if (start >= l)
-		return (ft_strdup(""));
-	if (len > l - start)
-		len = l - start;
-	tmp = (char *)malloc (len + 1);
-	if (!tmp)
-		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		tmp[i] = s[start + i];
-		i++;
-	}
-	tmp[i] = '\0';
-	return (tmp);
-}
+// 	if (!s)
+// 		return (NULL);
+// 	l = ft_strlen(s);
+// 	if (start >= l)
+// 		return (ft_strdup(""));
+// 	if (len > l - start)
+// 		len = l - start;
+// 	tmp = (char *)malloc (len + 1);
+// 	if (!tmp)
+// 		return (NULL);
+// 	i = 0;
+// 	while (i < len)
+// 	{
+// 		tmp[i] = s[start + i];
+// 		i++;
+// 	}
+// 	tmp[i] = '\0';
+// 	return (tmp);
+// }
 
 int	get_nbr_color(char *line)
 {
@@ -115,7 +120,7 @@ int	get_nbr_color(char *line)
 	i = 0;
 	while (ft_isdigit(line[i]))
 		i++;
-	if (i =< 2)
+	if (i <= 3)
 		return (i);
 	else
 		return (-1);	
@@ -125,7 +130,7 @@ int	get_nmbr(t_data *data, int *arry, char *line, int i)
 {
 	int	len;
 
-	len = get_len_nmbr(line + i);
+	len = get_nbr_color(line + i);
 	if (len == -1)
 		return (problem_element(data), 0);
 	else
@@ -139,14 +144,8 @@ int	get_nmbr(t_data *data, int *arry, char *line, int i)
 
 //F    9 9,     88      58,                5    , 255         \n
 
-void	problem_element(t_data *data)
+int	*pars_color(t_data *data, char *line, int i)
 {
-	data->count_element = -1;
-}
-
-void	pars_color(t_data *data, char *line, int i)
-{
-	int		len;
 	int		*arry;
 
 	arry = malloc(3 * sizeof(int));
@@ -160,13 +159,13 @@ void	pars_color(t_data *data, char *line, int i)
 			break;
 		if (ft_isdigit(line[i]) && data->counter < 3 && data->flag == 0)
 			i = i + get_nmbr(data, arry, line, i);
-		else if (line[i] == ',' && data->flag == 1 )
-			data->flag == 0;
+		else if (line[i] == ',' && data->counter < 3 && data->flag == 1)
+			data->flag = 0;
 		else if (line[i] != ' ' && line[i] != ','
 				&& !ft_isdigit(line[i]))
 			return (problem_element(data), free(arry), NULL);
 		else if ((ft_isdigit(line[i]) && data->flag == 1)
-			|| (ft_isdigit(line[i]) && data->counter >= 3))
+			|| (ft_isdigit(line[i]) && data->counter >= 3) || (line[i] == ','))
 			return (problem_element(data), free(arry), NULL);
 		i++;
 	}
@@ -189,10 +188,14 @@ void	color_element(t_data *data, char *line, char c)
 	}
 	else if (data->C == 1)
 		data->ceiling_colr = pars_color(data, line, i);
-	else if (data-F == 1)
+	else if (data->F == 1)
 		data->floor_colr = pars_color(data, line, i);
 	if (data->count_element != -1)
+	{
 		data->count_element++;
+		data->counter = 0;
+		data->flag = 0;
+	}
 }
 
 // void	direction_element(t_data *data, char *line, char c)
@@ -224,14 +227,18 @@ void	initial_element(int fd, t_data *data)
 	{
 		line = get_next_line(fd);
 		if (!line)
-			break;
+			break ;
 		if (line[0] != '\n')
 			add_element(data, line);
 		if (data->count_element == 2)
-			break;
+			break ;
 		else if (data->count_element == -1)
-			return ;
+			break ;
+		if (line[0] != '\0')
+			free(line);
 	}
+	if (line[0] != '\0')
+		free(line);
 }
 
 char	**read_file(int fd, t_data *data)
@@ -245,11 +252,13 @@ char	**read_file(int fd, t_data *data)
 		error_case("Error\nIncorrect data in File !!!!\n");
 	line = "";
 	all_lines = "";
+	data->flag = 0;
 	while (line)
 	{
 		line = get_next_line(fd);
-		if (!line)
+		if (!line || (line[0] == '\n' && data->flag == 0))
 			break ;
+		data->flag = 1;
 		tmp = all_lines;
 		all_lines = ft_strjoin(tmp, line);
 		if (tmp[0] != '\0')
@@ -260,7 +269,7 @@ char	**read_file(int fd, t_data *data)
 	close(fd);
 	check_last_lines(all_lines, ft_strlen(all_lines) - 1);
 	if (all_lines[0] == '\0')
-		error_case("Error\nFile is emty\n");
+		error_case("Error\nMap is not Valid\n");
 	return (ft_split(all_lines, '\n'));
 }
 
@@ -272,6 +281,12 @@ int	pars_and_initial(char *av, t_data *data)
 		return (-1);
 	fd = get_fd(av);
 	data->map = read_file(fd, data);
+	printf("%d\n", data->ceiling_colr[0]);
+	printf("%d\n", data->ceiling_colr[1]);
+	printf("%d\n", data->ceiling_colr[2]);
+	printf("%d\n", data->floor_colr[0]);
+	printf("%d\n", data->floor_colr[1]);
+	printf("%d\n", data->floor_colr[2]);
 	return (0);
 }
 
@@ -284,4 +299,5 @@ int	main(int ac, char **av)
 	ft_bzero(&data, sizeof(data));
 	if (pars_and_initial(av[1], &data) == -1)
 		error_case("Error\n");
+	
 }
