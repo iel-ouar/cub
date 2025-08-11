@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:13:48 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/08/10 18:04:39 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/08/11 13:16:00 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,9 +256,10 @@ char	**read_file(int fd, t_data *data)
 	while (line)
 	{
 		line = get_next_line(fd);
-		if (!line || (line[0] == '\n' && data->flag == 0))
+		if (!line || (line[0] == '\n' && data->flag == 1))
 			break ;
-		data->flag = 1;
+		if (line[0] != '\n')
+			data->flag = 1;
 		tmp = all_lines;
 		all_lines = ft_strjoin(tmp, line);
 		if (tmp[0] != '\0')
