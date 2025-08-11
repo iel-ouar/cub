@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:04:28 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/08/10 16:45:14 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/08/11 15:06:39 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ typedef struct s_data
 	char	*east_tex;
 	int		*floor_colr;
 	int		*ceiling_colr;
-	int		NO;
-	int		WE;
-	int		SO;
-	int		EA;
-	int		F;
-	int		C;
+	int		no;
+	int		we;
+	int		so;
+	int		ea;
+	int		f;
+	int		c;
 	char	**map;
 	char	player_dir;
 }	t_data;

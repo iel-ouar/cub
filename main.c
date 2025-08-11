@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:13:48 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/08/11 13:16:00 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/08/11 16:16:52 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,17 +178,17 @@ void	color_element(t_data *data, char *line, char c)
 
 	i = 0;
 	if (c == 'F')
-		data->F++;
+		data->f++;
 	else
-		data->C++;
-	if (data->C > 1 || data->F > 1)
+		data->c++;
+	if (data->c > 1 || data->f > 1)
 	{
 		problem_element(data);
 		return ;
 	}
-	else if (data->C == 1)
+	else if (data->c == 1)
 		data->ceiling_colr = pars_color(data, line, i);
-	else if (data->F == 1)
+	else if (data->f == 1)
 		data->floor_colr = pars_color(data, line, i);
 	if (data->count_element != -1)
 	{
@@ -198,10 +198,89 @@ void	color_element(t_data *data, char *line, char c)
 	}
 }
 
-// void	direction_element(t_data *data, char *line, char c)
-// {
-	
-// }
+int	is_path(char *str)
+{
+	int	i;
+
+	i = 0;	
+	if (str[i] == '/')
+		return (1);
+	else if (str[i] == '.')
+	{
+		i++;
+		if (str[i] == '/')
+			return (1);
+	}
+	return (0);
+}
+
+int	get_len(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != '\n')
+		i++;
+	return (i);
+}
+
+void	add_path_element(t_data *data, char *line, char c, char next_c)
+{
+	int		len;
+
+	len = get_len(line);
+	if (c == 'N' && next_c == 'O')
+		data->north_tex = ft_substr(line, 0, len);
+	else if (c == 'S' && next_c == 'O')
+		data->south_tex = ft_substr(line, 0, len);
+	else if (c == 'E' && next_c == 'A')
+		data->east_tex = ft_substr(line, 0, len);
+	else if (c == 'W' && next_c == 'E')
+		data->west_tex = ft_substr(line, 0, len);
+	else
+		data->count_element = -1;
+}
+
+void	pars_directions(t_data *data, char *line, char c, int i)
+{
+	char	next_c;
+
+	next_c = line[i];
+	i++;
+	while (line[i] && line[i] != '\n' && line[i] == ' ')
+		i++;
+	if (!line[i] || line[i] == '\n')
+		return (problem_element(data));
+	if (is_path(line + i))
+		add_path_element(data, line + i, c, next_c);
+	else
+		data->count_element = -1;
+}
+
+void	direction_element(t_data *data, char *line, char c)
+{
+	int	i;
+
+	i = 0;
+	if (c == 'N' && line[i] == 'O')
+		data->no++;
+	else if (c == 'S' && line[i] == 'O')
+		data->so++;
+	else if (c == 'E' && line[i] == 'A')
+		data->ea++;
+	else if (c == 'W' && line[i] == 'E')
+		data->we++;
+	if (data->no > 1 || data->so > 1 || data->ea > 1 || data->we > 1)
+		return (problem_element(data));
+	else
+		pars_directions(data, line, c, i);
+	if (data->count_element != -1)
+	{
+		data->count_element++;
+		data->counter = 0;
+		data->flag = 0;
+	}
+}
 
 void	add_element(t_data *data, char *line)
 {
@@ -212,8 +291,8 @@ void	add_element(t_data *data, char *line)
 		i++;
 	if ((line[i] == 'F' || line[i] == 'C') && (line[i + 1] == ' '))
 		color_element(data, line + i + 1, line[i]);
-	// else if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
-	// 	direction_element(data, line + i, line[i])
+	else if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
+		direction_element(data, line + i + 1, line[i]);
 	else
 		problem_element(data);
 }
@@ -230,7 +309,7 @@ void	initial_element(int fd, t_data *data)
 			break ;
 		if (line[0] != '\n')
 			add_element(data, line);
-		if (data->count_element == 2)
+		if (data->count_element == 6)
 			break ;
 		else if (data->count_element == -1)
 			break ;
@@ -248,7 +327,7 @@ char	**read_file(int fd, t_data *data)
 	char	*tmp;
 
 	initial_element(fd, data);
-	if (data->count_element != 2)
+	if (data->count_element != 6)
 		error_case("Error\nIncorrect data in File !!!!\n");
 	line = "";
 	all_lines = "";
