@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:13:48 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/08/11 16:16:52 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/08/14 17:13:51 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -353,6 +353,127 @@ char	**read_file(int fd, t_data *data)
 	return (ft_split(all_lines, '\n'));
 }
 
+int	check_color_nbrs(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < 3)
+	{
+		if (data->ceiling_colr[i] > 255 || data->ceiling_colr[i] < 0)
+			return (-1);
+		if (data->floor_colr[i] > 255 || data->floor_colr[i] < 0)
+			return (-1);
+		i++;
+	}
+	return (0);
+}
+
+int	is_player(char c)
+{
+	if (c == 'N' || c == 'S'
+			|| c == 'W' || c == 'E')
+			return (1);
+	return (0);
+			
+}
+
+int	is_not_element(char c)
+{
+	if (c != ' ' && c != '1' && c != '0' && c != 'N'
+			&& c != 'S' && c != 'W' && c != 'E')
+		return (1);
+	return (0);
+}
+
+int	check_map_element(t_data *data)
+{
+	int	i;
+	int	j;
+	int	p;
+
+	i = 0;
+	p = 0;
+	while (data->map[i])
+	{
+		j = 0;
+		while (data->map[i][j])
+		{
+			if (is_not_element(data->map[i][j]) || p > 1)
+				return (-1);
+			else if (is_player(data->map[i][j]))
+				p++;
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+
+
+int	is_nvalid(char down, char up, char right, char left)
+{
+	if (down == ' ' || down == '\0')
+		return (1);
+	else if (up == ' ' || up == '\0')
+		return (1);
+	else if (right == ' ' || right == '\0')
+		return (1);
+	else if (left == ' ' || left == '\0')
+		return (1);
+	return (0);
+}
+
+int	count_height(char **str)
+{
+	int	i;
+	
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+int	check_map_body(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	data->counter = count_height(data->map) - 1;
+	while (data->map[i])
+	{
+		j = 0;
+		while (data->map[i][j])
+		{
+			if (i == 0 && (data->map[i][j] == '0' || is_player(data->map[i][j])))
+				return (-1);
+			else if (j == 0 && (data->map[i][j] == '0' || is_player(data->map[i][j])))
+				return (-1);
+			else if (i == data->counter && (data->map[i][j] == '0' || is_player(data->map[i][j])))
+				return (-1);
+			else if ((data->map[i][j] == '0' || is_player(data->map[i][j]))
+				&& is_nvalid(data->map[i + 1][j], data->map[i - 1][j], data->map[i][j + 1], data->map[i][j - 1]))
+				return (-1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	check_data(t_data *data)
+{
+	if (check_color_nbrs(data) == -1)
+		return (-1);
+	if (check_map_element(data) == -1)
+		return (-1);
+	if (check_map_body(data) == -1)
+		return (-1);
+	return (0);
+}
+
 int	pars_and_initial(char *av, t_data *data)
 {
 	int	fd;
@@ -361,12 +482,10 @@ int	pars_and_initial(char *av, t_data *data)
 		return (-1);
 	fd = get_fd(av);
 	data->map = read_file(fd, data);
-	printf("%d\n", data->ceiling_colr[0]);
-	printf("%d\n", data->ceiling_colr[1]);
-	printf("%d\n", data->ceiling_colr[2]);
-	printf("%d\n", data->floor_colr[0]);
-	printf("%d\n", data->floor_colr[1]);
-	printf("%d\n", data->floor_colr[2]);
+	if (check_data(data) == -1)
+		error_case("Error\n Waaa 5oya xHad Lmap Dyal BraHex\n");
+	else
+		printf("Map Nadya b7al wejhek :)\n");
 	return (0);
 }
 
@@ -379,5 +498,6 @@ int	main(int ac, char **av)
 	ft_bzero(&data, sizeof(data));
 	if (pars_and_initial(av[1], &data) == -1)
 		error_case("Error\n");
+	
 	
 }
