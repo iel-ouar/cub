@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:04:28 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/08/17 11:10:09 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/08/17 12:02:00 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,35 @@ int		ft_atoi(char *str);
 int		ft_atoi_check(char *str);
 void	ft_bzero(void *s, size_t n);
 char	**ft_split(char *s, char c);
+int		ft_strcmp(char *s1, char *s2);
+void	error_case(char *str);
+int		count_height(char **str);
+// parsing_functions ****************
+int		get_fd(char *str);
+int		check_name(char *str);
+int		count_not_espace(char *line);
+int		check_color_nbrs(t_pars *pars);
+int		check_data(t_pars *pars);
+void	full_info(t_info *info, t_pars pars);
+int		pars_and_initial(char *av, t_info *info);
+void	color_element(t_pars *pars, char *line, char c);
+int		*pars_color(t_pars *pars, char *line, int i);
+int		get_nmbr(t_pars *pars, int *arry, char *line, int i);
+int		get_nbr_color(char *line);
+int		is_path(char *str);
+int		get_len(char *str);
+void	add_path_element(t_pars *pars, char *line, char c, char next_c);
+void	pars_directions(t_pars *pars, char *line, char c, int i);
+void	direction_element(t_pars *pars, char *line, char c);
+int		is_nvalid(char down, char up, char right, char left);
+int		check_map_element(t_pars *pars);
+int		check_map_body(t_pars *pars);
+int		is_player(char c);
+int		is_not_element(char c);
+void	problem_element(t_pars *pars);
+void	check_last_lines(char *str, int last);
+void	add_element(t_pars *pars, char *line);
+void	initial_element(int fd, t_pars *pars);
+char	**read_file(int fd, t_pars *pars);
 
 #endif

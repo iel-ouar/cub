@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   pars_map2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/05 08:13:48 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/08/17 12:03:59 by iel-ouar         ###   ########.fr       */
+/*   Created: 2025/08/17 11:41:49 by iel-ouar          #+#    #+#             */
+/*   Updated: 2025/08/17 11:46:21 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
-int	main(int ac, char **av)
+int	is_player(char c)
 {
-	t_info	info;
+	if (c == 'N' || c == 'S'
+			|| c == 'W' || c == 'E')
+			return (1);
+	return (0);
+			
+}
 
-	if (ac != 2)
+int	is_not_element(char c)
+{
+	if (c != ' ' && c != '1' && c != '0' && c != 'N'
+			&& c != 'S' && c != 'W' && c != 'E')
 		return (1);
-	ft_bzero(&info, sizeof(info));
-	if (pars_and_initial(av[1], &info) == -1)
-		error_case("Error\n");
-	printf("%s\n", info.map[5]);
-	printf("directin of player is : %c\n", info.player.dirct);
-	printf("cordonner player is x = %d, y = %d\n", info.player.x, info.player.y);
-	
+	return (0);
+}
+
+void	problem_element(t_pars *pars)
+{
+	pars->count_element = -1;
 }
