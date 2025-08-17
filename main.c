@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:13:48 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/08/14 17:13:51 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/08/17 11:26:16 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ void	check_last_lines(char *str, int last)
 	}
 }
 
-void	problem_element(t_data *data)
+void	problem_element(t_pars *pars)
 {
-	data->count_element = -1;
+	pars->count_element = -1;
 }
 
 int	count_not_espace(char *line)
@@ -126,75 +126,75 @@ int	get_nbr_color(char *line)
 		return (-1);	
 }
 
-int	get_nmbr(t_data *data, int *arry, char *line, int i)
+int	get_nmbr(t_pars *pars, int *arry, char *line, int i)
 {
 	int	len;
 
 	len = get_nbr_color(line + i);
 	if (len == -1)
-		return (problem_element(data), 0);
+		return (problem_element(pars), 0);
 	else
 	{
-		arry[data->counter] = ft_atoi(ft_substr(line, i, len));
-		data->counter++;
-		data->flag = 1;
+		arry[pars->counter] = ft_atoi(ft_substr(line, i, len));
+		pars->counter++;
+		pars->flag = 1;
 	}
 	return (len - 1);
 }
 
 //F    9 9,     88      58,                5    , 255         \n
 
-int	*pars_color(t_data *data, char *line, int i)
+int	*pars_color(t_pars *pars, char *line, int i)
 {
 	int		*arry;
 
 	arry = malloc(3 * sizeof(int));
 	if (!arry)
 		return (NULL);
-	while (line[i] && line[i] != '\n' && data->count_element != -1)
+	while (line[i] && line[i] != '\n' && pars->count_element != -1)
 	{
 		while (line[i] && line[i] != '\n' && line[i] == ' ')
 			i++;
 		if (!line[i] || line[i] == '\n')
 			break;
-		if (ft_isdigit(line[i]) && data->counter < 3 && data->flag == 0)
-			i = i + get_nmbr(data, arry, line, i);
-		else if (line[i] == ',' && data->counter < 3 && data->flag == 1)
-			data->flag = 0;
+		if (ft_isdigit(line[i]) && pars->counter < 3 && pars->flag == 0)
+			i = i + get_nmbr(pars, arry, line, i);
+		else if (line[i] == ',' && pars->counter < 3 && pars->flag == 1)
+			pars->flag = 0;
 		else if (line[i] != ' ' && line[i] != ','
 				&& !ft_isdigit(line[i]))
-			return (problem_element(data), free(arry), NULL);
-		else if ((ft_isdigit(line[i]) && data->flag == 1)
-			|| (ft_isdigit(line[i]) && data->counter >= 3) || (line[i] == ','))
-			return (problem_element(data), free(arry), NULL);
+			return (problem_element(pars), free(arry), NULL);
+		else if ((ft_isdigit(line[i]) && pars->flag == 1)
+			|| (ft_isdigit(line[i]) && pars->counter >= 3) || (line[i] == ','))
+			return (problem_element(pars), free(arry), NULL);
 		i++;
 	}
 	return (arry);
 }
 
-void	color_element(t_data *data, char *line, char c)
+void	color_element(t_pars *pars, char *line, char c)
 {
 	int	i;
 
 	i = 0;
 	if (c == 'F')
-		data->f++;
+		pars->f++;
 	else
-		data->c++;
-	if (data->c > 1 || data->f > 1)
+		pars->c++;
+	if (pars->c > 1 || pars->f > 1)
 	{
-		problem_element(data);
+		problem_element(pars);
 		return ;
 	}
-	else if (data->c == 1)
-		data->ceiling_colr = pars_color(data, line, i);
-	else if (data->f == 1)
-		data->floor_colr = pars_color(data, line, i);
-	if (data->count_element != -1)
+	else if (pars->c == 1)
+		pars->ceiling_colr = pars_color(pars, line, i);
+	else if (pars->f == 1)
+		pars->floor_colr = pars_color(pars, line, i);
+	if (pars->count_element != -1)
 	{
-		data->count_element++;
-		data->counter = 0;
-		data->flag = 0;
+		pars->count_element++;
+		pars->counter = 0;
+		pars->flag = 0;
 	}
 }
 
@@ -224,24 +224,24 @@ int	get_len(char *str)
 	return (i);
 }
 
-void	add_path_element(t_data *data, char *line, char c, char next_c)
+void	add_path_element(t_pars *pars, char *line, char c, char next_c)
 {
 	int		len;
 
 	len = get_len(line);
 	if (c == 'N' && next_c == 'O')
-		data->north_tex = ft_substr(line, 0, len);
+		pars->north_tex = ft_substr(line, 0, len);
 	else if (c == 'S' && next_c == 'O')
-		data->south_tex = ft_substr(line, 0, len);
+		pars->south_tex = ft_substr(line, 0, len);
 	else if (c == 'E' && next_c == 'A')
-		data->east_tex = ft_substr(line, 0, len);
+		pars->east_tex = ft_substr(line, 0, len);
 	else if (c == 'W' && next_c == 'E')
-		data->west_tex = ft_substr(line, 0, len);
+		pars->west_tex = ft_substr(line, 0, len);
 	else
-		data->count_element = -1;
+		pars->count_element = -1;
 }
 
-void	pars_directions(t_data *data, char *line, char c, int i)
+void	pars_directions(t_pars *pars, char *line, char c, int i)
 {
 	char	next_c;
 
@@ -250,39 +250,39 @@ void	pars_directions(t_data *data, char *line, char c, int i)
 	while (line[i] && line[i] != '\n' && line[i] == ' ')
 		i++;
 	if (!line[i] || line[i] == '\n')
-		return (problem_element(data));
+		return (problem_element(pars));
 	if (is_path(line + i))
-		add_path_element(data, line + i, c, next_c);
+		add_path_element(pars, line + i, c, next_c);
 	else
-		data->count_element = -1;
+		pars->count_element = -1;
 }
 
-void	direction_element(t_data *data, char *line, char c)
+void	direction_element(t_pars *pars, char *line, char c)
 {
 	int	i;
 
 	i = 0;
 	if (c == 'N' && line[i] == 'O')
-		data->no++;
+		pars->no++;
 	else if (c == 'S' && line[i] == 'O')
-		data->so++;
+		pars->so++;
 	else if (c == 'E' && line[i] == 'A')
-		data->ea++;
+		pars->ea++;
 	else if (c == 'W' && line[i] == 'E')
-		data->we++;
-	if (data->no > 1 || data->so > 1 || data->ea > 1 || data->we > 1)
-		return (problem_element(data));
+		pars->we++;
+	if (pars->no > 1 || pars->so > 1 || pars->ea > 1 || pars->we > 1)
+		return (problem_element(pars));
 	else
-		pars_directions(data, line, c, i);
-	if (data->count_element != -1)
+		pars_directions(pars, line, c, i);
+	if (pars->count_element != -1)
 	{
-		data->count_element++;
-		data->counter = 0;
-		data->flag = 0;
+		pars->count_element++;
+		pars->counter = 0;
+		pars->flag = 0;
 	}
 }
 
-void	add_element(t_data *data, char *line)
+void	add_element(t_pars *pars, char *line)
 {
 	int	i;
 
@@ -290,14 +290,14 @@ void	add_element(t_data *data, char *line)
 	while (line[i] == ' ')
 		i++;
 	if ((line[i] == 'F' || line[i] == 'C') && (line[i + 1] == ' '))
-		color_element(data, line + i + 1, line[i]);
+		color_element(pars, line + i + 1, line[i]);
 	else if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
-		direction_element(data, line + i + 1, line[i]);
+		direction_element(pars, line + i + 1, line[i]);
 	else
-		problem_element(data);
+		problem_element(pars);
 }
 
-void	initial_element(int fd, t_data *data)
+void	initial_element(int fd, t_pars *pars)
 {
 	char	*line;
 
@@ -308,10 +308,10 @@ void	initial_element(int fd, t_data *data)
 		if (!line)
 			break ;
 		if (line[0] != '\n')
-			add_element(data, line);
-		if (data->count_element == 6)
+			add_element(pars, line);
+		if (pars->count_element == 6)
 			break ;
-		else if (data->count_element == -1)
+		else if (pars->count_element == -1)
 			break ;
 		if (line[0] != '\0')
 			free(line);
@@ -320,25 +320,25 @@ void	initial_element(int fd, t_data *data)
 		free(line);
 }
 
-char	**read_file(int fd, t_data *data)
+char	**read_file(int fd, t_pars *pars)
 {
 	char	*line;
 	char	*all_lines;
 	char	*tmp;
 
-	initial_element(fd, data);
-	if (data->count_element != 6)
-		error_case("Error\nIncorrect data in File !!!!\n");
+	initial_element(fd, pars);
+	if (pars->count_element != 6)
+		error_case("Error\nIncorrect pars in File !!!!\n");
 	line = "";
 	all_lines = "";
-	data->flag = 0;
+	pars->flag = 0;
 	while (line)
 	{
 		line = get_next_line(fd);
-		if (!line || (line[0] == '\n' && data->flag == 1))
+		if (!line || (line[0] == '\n' && pars->flag == 1))
 			break ;
 		if (line[0] != '\n')
-			data->flag = 1;
+			pars->flag = 1;
 		tmp = all_lines;
 		all_lines = ft_strjoin(tmp, line);
 		if (tmp[0] != '\0')
@@ -353,16 +353,16 @@ char	**read_file(int fd, t_data *data)
 	return (ft_split(all_lines, '\n'));
 }
 
-int	check_color_nbrs(t_data *data)
+int	check_color_nbrs(t_pars *pars)
 {
 	int	i;
 
 	i = 0;
 	while (i < 3)
 	{
-		if (data->ceiling_colr[i] > 255 || data->ceiling_colr[i] < 0)
+		if (pars->ceiling_colr[i] > 255 || pars->ceiling_colr[i] < 0)
 			return (-1);
-		if (data->floor_colr[i] > 255 || data->floor_colr[i] < 0)
+		if (pars->floor_colr[i] > 255 || pars->floor_colr[i] < 0)
 			return (-1);
 		i++;
 	}
@@ -386,7 +386,7 @@ int	is_not_element(char c)
 	return (0);
 }
 
-int	check_map_element(t_data *data)
+int	check_map_element(t_pars *pars)
 {
 	int	i;
 	int	j;
@@ -394,15 +394,20 @@ int	check_map_element(t_data *data)
 
 	i = 0;
 	p = 0;
-	while (data->map[i])
+	while (pars->map[i])
 	{
 		j = 0;
-		while (data->map[i][j])
+		while (pars->map[i][j])
 		{
-			if (is_not_element(data->map[i][j]) || p > 1)
+			if (is_not_element(pars->map[i][j]) || p > 1)
 				return (-1);
-			else if (is_player(data->map[i][j]))
+			else if (is_player(pars->map[i][j]))
+			{
 				p++;
+				pars->player_dir = pars->map[i][j];
+				pars->x_player = j;
+				pars->y_player = i;
+			}
 			j++;
 		}
 		i++;
@@ -435,26 +440,26 @@ int	count_height(char **str)
 	return (i);
 }
 
-int	check_map_body(t_data *data)
+int	check_map_body(t_pars *pars)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	data->counter = count_height(data->map) - 1;
-	while (data->map[i])
+	pars->counter = count_height(pars->map) - 1;
+	while (pars->map[i])
 	{
 		j = 0;
-		while (data->map[i][j])
+		while (pars->map[i][j])
 		{
-			if (i == 0 && (data->map[i][j] == '0' || is_player(data->map[i][j])))
+			if (i == 0 && (pars->map[i][j] == '0' || is_player(pars->map[i][j])))
 				return (-1);
-			else if (j == 0 && (data->map[i][j] == '0' || is_player(data->map[i][j])))
+			else if (j == 0 && (pars->map[i][j] == '0' || is_player(pars->map[i][j])))
 				return (-1);
-			else if (i == data->counter && (data->map[i][j] == '0' || is_player(data->map[i][j])))
+			else if (i == pars->counter && (pars->map[i][j] == '0' || is_player(pars->map[i][j])))
 				return (-1);
-			else if ((data->map[i][j] == '0' || is_player(data->map[i][j]))
-				&& is_nvalid(data->map[i + 1][j], data->map[i - 1][j], data->map[i][j + 1], data->map[i][j - 1]))
+			else if ((pars->map[i][j] == '0' || is_player(pars->map[i][j]))
+				&& is_nvalid(pars->map[i + 1][j], pars->map[i - 1][j], pars->map[i][j + 1], pars->map[i][j - 1]))
 				return (-1);
 			j++;
 		}
@@ -463,41 +468,55 @@ int	check_map_body(t_data *data)
 	return (0);
 }
 
-int	check_data(t_data *data)
+int	check_data(t_pars *pars)
 {
-	if (check_color_nbrs(data) == -1)
+	if (check_color_nbrs(pars) == -1)
 		return (-1);
-	if (check_map_element(data) == -1)
+	if (check_map_element(pars) == -1)
 		return (-1);
-	if (check_map_body(data) == -1)
+	if (check_map_body(pars) == -1)
 		return (-1);
 	return (0);
 }
 
-int	pars_and_initial(char *av, t_data *data)
+void	full_info(t_info *info, t_pars pars)
 {
-	int	fd;
+	info->map = pars.map;
+	info->ceiling_colr = pars.ceiling_colr;
+	info->floor_colr = pars.floor_colr;
+	info->east_tex = pars.east_tex;
+	info->north_tex = pars.north_tex;
+	info->south_tex = pars.south_tex;
+	info->west_tex = pars.west_tex;
+	info->player.x = pars.x_player;
+	info->player.y = pars.y_player;
+	info->player.dirct = pars.player_dir;
+}
+
+int	pars_and_initial(char *av, t_info *info)
+{
+	t_pars	pars;
+	int		fd;
 
 	if (check_name(av) == 0)
 		return (-1);
 	fd = get_fd(av);
-	data->map = read_file(fd, data);
-	if (check_data(data) == -1)
+	ft_bzero(&pars, sizeof(pars));
+	pars.map = read_file(fd, &pars);
+	if (check_data(&pars) == -1)
 		error_case("Error\n Waaa 5oya xHad Lmap Dyal BraHex\n");
-	else
-		printf("Map Nadya b7al wejhek :)\n");
+	full_info(info, pars);
 	return (0);
 }
 
 int	main(int ac, char **av)
 {
-	t_data	data;
+	t_info	info;
 
 	if (ac != 2)
 		return (1);
-	ft_bzero(&data, sizeof(data));
-	if (pars_and_initial(av[1], &data) == -1)
+	ft_bzero(&info, sizeof(info));
+	if (pars_and_initial(av[1], &info) == -1)
 		error_case("Error\n");
-	
 	
 }
