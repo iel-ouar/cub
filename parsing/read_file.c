@@ -6,18 +6,19 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 11:27:25 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/08/19 14:05:38 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/08/19 15:24:42 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-void	check_last_lines(char *str, int last)
+void	check_last_lines(char *str, int last, t_pars *pars)
 {
 	if (str[last] == '\n')
 	{
-		free(str);
-		error_case("Error\nMap is not valid !!\n");
+		if (str[0] != '\0')
+			free(str);
+		ft_free_pars(pars, "Error\nMap is not Valid !!\n");
 	}
 }
 
@@ -55,7 +56,7 @@ void	initial_element(int fd, t_pars *pars)
 		if (line[0] != '\0')
 			free(line);
 	}
-	if (line[0] != '\0')
+	if (line && line[0] != '\0')
 		free(line);
 	if (pars->count_element == -1)
 		line = get_next_line(-2);
@@ -88,8 +89,8 @@ char	**read_file(int fd, t_pars *pars)
 	}
 	free(line);
 	close(fd);
-	check_last_lines(all_lines, ft_strlen(all_lines) - 1);
+	check_last_lines(all_lines, ft_strlen(all_lines) - 1, pars);
 	if (all_lines[0] == '\0')
-		error_case("Error\nMap is not Valid !\n");
+		ft_free_pars(pars, "Error\nMap is not Valid !\n");
 	return (ft_split(all_lines, '\n'));
 }

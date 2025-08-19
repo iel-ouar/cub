@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:04:28 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/08/19 13:37:58 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/08/19 15:14:32 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int		check_map_body(t_pars *pars);
 int		is_player(char c);
 int		is_not_element(char c);
 void	problem_element(t_pars *pars);
-void	check_last_lines(char *str, int last);
+void	check_last_lines(char *str, int last, t_pars *pars);
 void	add_element(t_pars *pars, char *line);
 void	initial_element(int fd, t_pars *pars);
 char	**read_file(int fd, t_pars *pars);

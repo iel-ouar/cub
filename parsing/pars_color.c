@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 11:35:41 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/08/19 14:10:58 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/08/19 14:54:07 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,12 @@ int	get_nmbr(t_pars *pars, int *arry, char *line, int i)
 	return (len - 1);
 }
 
+void	check_elem_color(t_pars *pars)
+{
+	if (pars->counter <= 2)
+		problem_element(pars);
+}
+
 int	*pars_color(t_pars *pars, char *line, int i)
 {
 	int		*arry;
@@ -68,7 +74,7 @@ int	*pars_color(t_pars *pars, char *line, int i)
 			return (problem_element(pars), free(arry), NULL);
 		i++;
 	}
-	check_
+	check_elem_color(pars);
 	return (arry);
 }
 

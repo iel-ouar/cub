@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 11:44:44 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/08/19 14:08:21 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/08/19 15:28:17 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	check_color_nbrs(t_pars *pars)
 	i = 0;
 	while (i < 3)
 	{
-		printf("%d\n",pars->ceiling_colr[i]);
 		if (pars->ceiling_colr[i] > 255 || pars->ceiling_colr[i] < 0)
 			return (-1);
 		if (pars->floor_colr[i] > 255 || pars->floor_colr[i] < 0)
@@ -82,7 +81,7 @@ int	pars_and_initial(char *av, t_info *info)
 	ft_bzero(&pars, sizeof(pars));
 	pars.map = read_file(fd, &pars);
 	if (check_data(&pars) == -1)
-		ft_free_pars(&pars, "Error\nIncorrect argument in File !!");
+		ft_free_pars(&pars, "Error\nIncorrect argument in File !!\n");
 	ft_free_pars(&pars, "Is not Error\n******** ALL GOOD BOSS ********\n");
 	// full_info(info, pars);
 	return (0);
