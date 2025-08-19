@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 11:35:41 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/08/17 11:36:24 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/08/19 14:10:58 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,16 @@ int	get_nbr_color(char *line)
 
 int	get_nmbr(t_pars *pars, int *arry, char *line, int i)
 {
-	int	len;
-
+	int		len;
+	char	*str;
 	len = get_nbr_color(line + i);
 	if (len == -1)
 		return (problem_element(pars), 0);
 	else
 	{
-		arry[pars->counter] = ft_atoi(ft_substr(line, i, len));
+		str = ft_substr(line, i, len);
+		arry[pars->counter] = ft_atoi(str);
+		free(str);
 		pars->counter++;
 		pars->flag = 1;
 	}
@@ -66,6 +68,7 @@ int	*pars_color(t_pars *pars, char *line, int i)
 			return (problem_element(pars), free(arry), NULL);
 		i++;
 	}
+	check_
 	return (arry);
 }
 

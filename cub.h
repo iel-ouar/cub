@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:04:28 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/08/17 12:02:00 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/08/19 13:37:58 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,6 @@ void	check_last_lines(char *str, int last);
 void	add_element(t_pars *pars, char *line);
 void	initial_element(int fd, t_pars *pars);
 char	**read_file(int fd, t_pars *pars);
+void	ft_free_pars(t_pars *pars, char *str);
 
 #endif

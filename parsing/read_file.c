@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 11:27:25 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/08/17 11:37:06 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/08/19 14:05:38 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	initial_element(int fd, t_pars *pars)
 	}
 	if (line[0] != '\0')
 		free(line);
+	if (pars->count_element == -1)
+		line = get_next_line(-2);
 }
 
 char	**read_file(int fd, t_pars *pars)
@@ -67,7 +69,7 @@ char	**read_file(int fd, t_pars *pars)
 
 	initial_element(fd, pars);
 	if (pars->count_element != 6)
-		error_case("Error\nIncorrect pars in File !!!!\n");
+		ft_free_pars(pars, "Error\nIncorrect element !!\n");
 	line = "";
 	all_lines = "";
 	pars->flag = 0;
@@ -88,6 +90,6 @@ char	**read_file(int fd, t_pars *pars)
 	close(fd);
 	check_last_lines(all_lines, ft_strlen(all_lines) - 1);
 	if (all_lines[0] == '\0')
-		error_case("Error\nMap is not Valid\n");
+		error_case("Error\nMap is not Valid !\n");
 	return (ft_split(all_lines, '\n'));
 }

@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 14:17:52 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/08/05 13:04:03 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/08/19 14:01:39 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,8 @@ char	*get_next_line(int fd)
 	char		*buf;
 	char		*line;
 
+	if (fd == -2)
+		return (free(remainder), NULL);
 	if (fd < 0 || fd >= 1024 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buf = malloc((BUFFER_SIZE + 1));
