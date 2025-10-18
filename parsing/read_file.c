@@ -6,19 +6,32 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 11:27:25 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/08/19 15:24:42 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/18 16:42:19 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-void	check_last_lines(char *str, int last, t_pars *pars)
+void	check_new_line(char *str, t_pars *pars)
 {
-	if (str[last] == '\n')
+	int	i;
+	int	flag;
+
+	i = 0;
+	flag = 0;
+	while (str[i])
 	{
-		if (str[0] != '\0')
-			free(str);
-		ft_free_pars(pars, "Error\nMap is not Valid !!\n");
+		if (str[i] != '\n' && flag == 0)
+			flag = 1;
+		else if (str[i] == '\n' && str[i + 1] == '\n' && flag == 1)
+			flag = 2;
+		else if (str[i] != '\n' && flag == 2)
+		{
+			if (str[0] != '\0')
+				free(str);
+			ft_free_pars(pars, "Error\nMap is not Valid !!\n");
+		}
+		i++;
 	}
 }
 
@@ -77,10 +90,8 @@ char	**read_file(int fd, t_pars *pars)
 	while (line)
 	{
 		line = get_next_line(fd);
-		if (!line || (line[0] == '\n' && pars->flag == 1))
+		if (!line)
 			break ;
-		if (line[0] != '\n')
-			pars->flag = 1;
 		tmp = all_lines;
 		all_lines = ft_strjoin(tmp, line);
 		if (tmp[0] != '\0')
@@ -89,7 +100,7 @@ char	**read_file(int fd, t_pars *pars)
 	}
 	free(line);
 	close(fd);
-	check_last_lines(all_lines, ft_strlen(all_lines) - 1, pars);
+	check_new_line(all_lines, pars);
 	if (all_lines[0] == '\0')
 		ft_free_pars(pars, "Error\nMap is not Valid !\n");
 	return (ft_split(all_lines, '\n'));
