@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 11:44:44 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/18 16:43:10 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/19 20:39:37 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,45 @@ int	check_data(t_pars *pars)
 	return (0);
 }
 
+t_img	load_img(char *path, void *ptr_mlx)
+{
+	t_img img;
+
+	img.img = mlx_xpm_file_to_image(ptr_mlx, path, &img.width, &img.height);
+	img.path = path;
+	if (!img.img)
+		return (NULL);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.size_line, &img.endian);
+	if (!img.addr)
+		return (NULL);
+	return (img);
+}
+
+int	get_textures(t_info *info, t_pars pars)
+{
+	info->ptr_mlx = mlx_init();
+	info->textures.north = load_img(pars.north_tex, info->ptr_mlx);
+	if (!info->textures.north)
+		return (-1);
+	info->textures.south = load_img(pars.south_tex, info->ptr_mlx);
+	if (!info->textures.south)
+		return (-1);
+	info->textures.west = load_img(pars.west_tex, info->ptr_mlx);
+	if (!info->textures.west)
+		return (-1);
+	info->textures.east = load_img(pars.east_tex, info->ptr_mlx);
+	if (!info->textures.east)
+		return (-1);
+	return (0);
+}
+
 void	full_info(t_info *info, t_pars pars)
 {
+	if (get_textures(pars) == -1)
+		ft_free_pars(&pars, "Error\nTextures Problem!!\n");
 	info->map = pars.map;
 	info->ceiling_colr = pars.ceiling_colr;
 	info->floor_colr = pars.floor_colr;
-	info->east_tex = pars.east_tex;
-	info->north_tex = pars.north_tex;
-	info->south_tex = pars.south_tex;
-	info->west_tex = pars.west_tex;
 	info->player.x = pars.x_player;
 	info->player.y = pars.y_player;
 	info->player.dirct = pars.player_dir;
@@ -82,7 +112,7 @@ int	pars_and_initial(char *av, t_info *info)
 	pars.map = read_file(fd, &pars);
 	if (check_data(&pars) == -1)
 		ft_free_pars(&pars, "Error\nIncorrect argument in File !!\n");
+	full_info(info, pars);
 	ft_free_pars(&pars, "Is not Error\n******** ALL GOOD BOSS ********\n");
-	// full_info(info, pars);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:04:28 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/18 16:32:42 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/19 20:11:13 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,26 @@ typedef struct s_pars
 	int		y_player;
 }	t_pars;
 
+typedef struct s_img
+{
+	char	*path;
+	void	*img;
+	char	*addr;
+	int		*size_line;
+	int		*endian;
+	int		*bits_per_pixel;
+	int		*width;
+	int		*height;
+}	t_img;
+
+typedef struct s_textures
+{
+	t_img		north;
+	t_img		west;
+	t_img		south;
+	t_img		east;
+}	t_textures;
+
 typedef struct s_player
 {
 	int		x;
@@ -51,7 +71,9 @@ typedef struct s_player
 
 typedef struct s_info
 {
+	void		*ptr_mlx;
 	t_player	player;
+	t_textures	textures;
 	char		**map;
 	char		*north_tex;
 	char		*west_tex;
