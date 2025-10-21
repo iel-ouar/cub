@@ -1,9 +1,10 @@
 F      100,100,0
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-EA ./path_to_the_east_texture
 C 10,30,0
-WE ./path_to_the_west_texture
+
+NO ./wall1.xpm
+SO ./wall22.xpm
+EA ./wall3.xpm
+WE ./wall4.xpm
 
 1111111111111111111111111
 101N100000110000000000001

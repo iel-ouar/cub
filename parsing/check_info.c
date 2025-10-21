@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 11:44:44 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/19 20:39:37 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/21 17:09:53 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,15 @@ t_img	load_img(char *path, void *ptr_mlx)
 {
 	t_img img;
 
+	ft_bzero(&img, sizeof(img));
 	img.img = mlx_xpm_file_to_image(ptr_mlx, path, &img.width, &img.height);
 	img.path = path;
 	if (!img.img)
-		return (NULL);
+	{
+		img.valid = -1;	
+		return (img);
+	}
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.size_line, &img.endian);
-	if (!img.addr)
-		return (NULL);
 	return (img);
 }
 
@@ -73,24 +75,22 @@ int	get_textures(t_info *info, t_pars pars)
 {
 	info->ptr_mlx = mlx_init();
 	info->textures.north = load_img(pars.north_tex, info->ptr_mlx);
-	if (!info->textures.north)
+	if (info->textures.north.valid == -1)
 		return (-1);
 	info->textures.south = load_img(pars.south_tex, info->ptr_mlx);
-	if (!info->textures.south)
+	if (info->textures.south.valid == -1)
 		return (-1);
 	info->textures.west = load_img(pars.west_tex, info->ptr_mlx);
-	if (!info->textures.west)
+	if (info->textures.west.valid == -1)
 		return (-1);
 	info->textures.east = load_img(pars.east_tex, info->ptr_mlx);
-	if (!info->textures.east)
+	if (info->textures.east.valid == -1)
 		return (-1);
 	return (0);
 }
 
 void	full_info(t_info *info, t_pars pars)
 {
-	if (get_textures(pars) == -1)
-		ft_free_pars(&pars, "Error\nTextures Problem!!\n");
 	info->map = pars.map;
 	info->ceiling_colr = pars.ceiling_colr;
 	info->floor_colr = pars.floor_colr;
@@ -99,12 +99,25 @@ void	full_info(t_info *info, t_pars pars)
 	info->player.dirct = pars.player_dir;
 }
 
+void	destroy_images_tex(t_info *info)
+{
+	if (info->textures.north.img)
+		mlx_destroy_image(info->ptr_mlx, info->textures.north.img);
+	if (info->textures.south.img)
+		mlx_destroy_image(info->ptr_mlx, info->textures.south.img);
+	if (info->textures.west.img)
+		mlx_destroy_image(info->ptr_mlx, info->textures.west.img);
+	if (info->textures.east.img)
+		mlx_destroy_image(info->ptr_mlx, info->textures.east.img);
+	mlx_destroy_display(info->ptr_mlx);
+	free(info->ptr_mlx);
+}
+
 int	pars_and_initial(char *av, t_info *info)
 {
 	t_pars	pars;
 	int		fd;
 
-	(void)info;
 	if (check_name(av) == 0)
 		return (-1);
 	fd = get_fd(av);
@@ -112,6 +125,11 @@ int	pars_and_initial(char *av, t_info *info)
 	pars.map = read_file(fd, &pars);
 	if (check_data(&pars) == -1)
 		ft_free_pars(&pars, "Error\nIncorrect argument in File !!\n");
+	if (get_textures(info, pars) == -1)
+	{
+		destroy_images_tex(info);
+		ft_free_pars(&pars, "Error\nTextures is Not valid !!\n");
+	}
 	full_info(info, pars);
 	ft_free_pars(&pars, "Is not Error\n******** ALL GOOD BOSS ********\n");
 	return (0);

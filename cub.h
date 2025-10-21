@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:04:28 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/19 20:11:13 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/21 16:47:49 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,12 @@ typedef struct s_img
 	char	*path;
 	void	*img;
 	char	*addr;
-	int		*size_line;
-	int		*endian;
-	int		*bits_per_pixel;
-	int		*width;
-	int		*height;
+	int		size_line;
+	int		endian;
+	int		bits_per_pixel;
+	int		width;
+	int		height;
+	int		valid;
 }	t_img;
 
 typedef struct s_textures
