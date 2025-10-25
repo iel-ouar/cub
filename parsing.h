@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub.h                                              :+:      :+:    :+:   */
+/*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:04:28 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/25 16:26:09 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/25 22:15:32 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,48 +42,74 @@ typedef struct s_pars
 	int		y_player;
 }	t_pars;
 
-typedef struct s_img
+// put_pixel struct
+typedef struct s_image
 {
 	char	*path;
 	void	*img;
 	char	*addr;
 	int		size_line;
 	int		endian;
-	int		bits_per_pixel;
+	int		bpp;
 	int		width;
 	int		height;
 	int		valid;
-}	t_img;
+}	t_image;
 
 typedef struct s_textures
 {
-	t_img		north;
-	t_img		west;
-	t_img		south;
-	t_img		east;
+	t_image		north;
+	t_image		west;
+	t_image		south;
+	t_image		east;
 }	t_textures;
 
+// buttons struct
+typedef struct s_btn
+{
+	bool btn_w;
+    bool btn_a;
+    bool btn_s;
+    bool btn_d;
+    bool btn_l;
+    bool btn_r;
+}	t_btn;
+
+
+// map struct
+typedef struct s_map
+{
+	char **map;
+    int map_w;
+    int map_h;
+}	t_map;
+
+
+// player struct
 typedef struct s_player
 {
-	int		x;
-	int		y;
-	char	dirct;
+	double x;
+	double y;
+	double angle;
+	double rotation;
+	double steps;
+    char    direct;
+	t_btn btn;
+    t_map *map;
 }	t_player;
 
-typedef struct s_info
+// game structs
+typedef struct s_game
 {
-	void		*ptr_mlx;
-	t_player	player;
+    void        *mlx;
+    void        *window;
+    t_map       map;
+    t_player    player;
 	t_textures	textures;
-	char		**map;
-	char		*north_tex;
-	char		*west_tex;
-	char		*south_tex;
-	char		*east_tex;
+	t_image		image;
 	int			*floor_colr;
 	int			*ceiling_colr;
-}	t_info;
-
+}   t_game;
 
 int		ft_isdigit(int c);
 int		ft_atoi(char *str);
@@ -99,8 +125,8 @@ int		check_name(char *str);
 int		count_not_espace(char *line);
 int		check_color_nbrs(t_pars *pars);
 int		check_data(t_pars *pars);
-void	full_info(t_info *info, t_pars pars);
-int		pars_and_initial(char *av, t_info *info);
+void	full_info(t_game *game, t_pars pars);
+int		pars_and_initial(char *av, t_game *game);
 void	color_element(t_pars *pars, char *line, char c);
 int		*pars_color(t_pars *pars, char *line, int i);
 int		get_nmbr(t_pars *pars, int *arry, char *line, int i);
@@ -121,5 +147,6 @@ void	add_element(t_pars *pars, char *line);
 void	initial_element(int fd, t_pars *pars);
 char	**read_file(int fd, t_pars *pars);
 void	ft_free_pars(t_pars *pars, char *str);
+size_t	ft_strslen(char **str);
 
 #endif

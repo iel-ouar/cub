@@ -6,11 +6,11 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 11:27:25 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/25 16:27:42 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/25 22:02:09 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
+#include "../cub.h"
 
 void	check_new_line(char *str, t_pars *pars)
 {

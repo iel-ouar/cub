@@ -6,11 +6,11 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 11:37:40 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/25 16:27:31 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/25 22:02:02 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
+#include "../cub.h"
 
 int	is_nvalid(char down, char up, char right, char left)
 {

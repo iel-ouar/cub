@@ -1,87 +1,54 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   tools.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/05 08:23:02 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/25 16:28:03 by iel-ouar         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "parsing.h"
-
-int	ft_isdigit(int c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
-}
-
-int	ft_atoi(char *str)
-{
-	int	i;
-	int	sing;
-	int	n;
-
-	n = 0;
-	sing = 1;
-	i = 0;
-	while (str[i] && ((str[i] >= 9 && str[i] <= 13) || str[i] == 32))
-		i++;
-	if (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i] == '-')
-			sing = -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		n = n * 10 + str[i] - '0';
-		i++;
-	}
-	return (n * sing);
-}
-
-int	ft_atoi_check(char *str)
-{
-	long	i;
-	int		sing;
-	long	n;
-
-	n = 0;
-	sing = 1;
-	i = 0;
-	while (str[i] && ((str[i] >= 9 && str[i] <= 13) || str[i] == 32))
-		i++;
-	if (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i] == '-')
-			sing = -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		n = n * 10 + str[i] - '0';
-		if ((sing == -1 && (-n) < (-2147483648))
-			|| (sing == 1 && n > 2147483647))
-			return (1);
-		i++;
-	}
-	return (0);
-}
+#include "cub.h"
 
 void	ft_bzero(void *s, size_t n)
 {
-	unsigned char	*str;
-	size_t			i;
+	char	*tmp_ptr;
 
-	str = (unsigned char *)s;
-	i = 0;
-	while (i < n)
+	tmp_ptr = (char *)s;
+	while (n > 0)
 	{
-		str[i] = '\0';
-		i++;
+		*(tmp_ptr++) = 0;
+		n--;
 	}
+}
+
+void	put_pixel(t_image *image, int y, int x, int color)
+{
+	char	*dst;
+
+	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
+		return ;
+	dst = image->addr + (y * image->size_line + x * (image->bpp / 8));
+	*(unsigned int *)dst = color;
+}
+
+
+double	circular_value(double v1, double v2)
+{
+	double	result;
+
+	result = fmod(v1, v2);
+	if (result < 0)
+		result += v2;
+	return (result);
+}
+
+void	init_ray_struct(t_ray *ray, t_player *player)
+{
+	ft_bzero(ray, sizeof(t_ray));
+	ray->angle = circular_value(player->angle + FOV / 2, 360);
+	ray->step = FOV / WIDTH;
+}
+
+bool	is_wall(double y, double x, t_map *map)
+{
+	int (mapY), (mapX);
+	mapY = (int)y/BLOCK;
+	mapX = (int)x/BLOCK;
+	if (mapY < 0 || mapY > map->map_h
+	   || mapX < 0 || mapX > map->map_w)
+		return (true);
+	if (map->map[mapY][mapX] == '1')
+		return (true);
+	return (false);
 }

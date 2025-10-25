@@ -6,11 +6,11 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 11:42:59 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/25 16:28:08 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/25 22:01:15 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "cub.h"
 
 int	ft_strcmp(char *s1, char *s2)
 {
