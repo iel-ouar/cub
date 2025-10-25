@@ -6,12 +6,12 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:04:28 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/21 16:47:49 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/25 16:26:09 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB_H
-# define CUB_H
+#ifndef PARCING_H
+# define PARCING_H
 
 # include <stdio.h>
 # include <stdlib.h>

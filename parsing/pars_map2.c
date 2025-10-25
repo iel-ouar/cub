@@ -6,11 +6,11 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 11:41:49 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/08/17 11:46:21 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/25 16:27:36 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub.h"
+#include "../parsing.h"
 
 int	is_player(char c)
 {

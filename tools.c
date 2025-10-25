@@ -6,11 +6,11 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:23:02 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/08/05 11:11:00 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/25 16:28:03 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "parsing.h"
 
 int	ft_isdigit(int c)
 {

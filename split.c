@@ -6,11 +6,11 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 07:34:59 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/08/05 11:12:10 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/25 16:27:58 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "parsing.h"
 
 static int	count_words(char *s, char c)
 {

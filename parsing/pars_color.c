@@ -6,11 +6,11 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 11:35:41 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/08/19 14:54:07 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/25 16:27:20 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub.h"
+#include "../parsing.h"
 
 int	get_nbr_color(char *line)
 {

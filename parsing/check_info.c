@@ -6,11 +6,11 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 11:44:44 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/21 17:09:53 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/25 16:27:13 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub.h"
+#include "../parsing.h"
 
 int	count_not_espace(char *line)
 {
