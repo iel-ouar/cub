@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 11:44:44 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/25 22:11:24 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/26 15:04:42 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,22 @@ int	get_textures(t_game *game,t_pars pars)
 
 void	full_info(t_game *game, t_pars pars)
 {
-	game->map.map_h = 9; 
-	game->map.map_w = 20;
+	int	i;
+
+	i = 0;
 	game->map.map = pars.map;
+	game->map.map_h = ft_strslen(game->map.map);
+	game->map.map_w = malloc((game->map.map_h + 1) * sizeof(int));
+	if (!game->map.map_w)
+	{
+		destroy_images_tex(game);
+		ft_free_pars(&pars, "Error\nMalloc failed !\n");	
+	}
+	while (i < game->map.map_h)
+	{
+		game->map.map_w[i] = ft_strlen(game->map.map[i]);
+		i++;
+	}
 	game->ceiling_colr = pars.ceiling_colr;
 	game->floor_colr = pars.floor_colr;
 	game->player.x = pars.x_player * BLOCK;
@@ -102,8 +115,6 @@ void	full_info(t_game *game, t_pars pars)
 	game->player.angle = 320;
 	game->player.rotation = 0.6;
 	game->player.steps = 1;
-	game->player.map = &game->map;
-	ft_bzero(&game->player.btn, sizeof(t_btn));
 }
 
 void	destroy_images_tex(t_game *game)
@@ -138,5 +149,7 @@ int	pars_and_initial(char *av, t_game *game)
 		ft_free_pars(&pars, "Error\nTextures is Not valid !!\n");
 	}
 	full_info(game, pars);
+	game->player.map = &game->map;
+	ft_bzero(&game->player.btn, sizeof(t_btn));
 	return (0);
 }

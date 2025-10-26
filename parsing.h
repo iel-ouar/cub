@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:04:28 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/25 22:15:32 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/26 14:54:54 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ typedef struct s_btn
 typedef struct s_map
 {
 	char **map;
-    int map_w;
+    int *map_w;
     int map_h;
 }	t_map;
 
