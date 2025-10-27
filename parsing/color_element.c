@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pars_color.c                                       :+:      :+:    :+:   */
+/*   color_element.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 11:35:41 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/25 22:01:56 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/27 17:29:12 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ int	get_nbr_color(char *line)
 		return (-1);	
 }
 
-int	get_nmbr(t_pars *pars, int *arry, char *line, int i)
+int	get_nbr(t_pars *pars, int *arry, char *line, int i)
 {
 	int		len;
 	char	*str;
+
 	len = get_nbr_color(line + i);
 	if (len == -1)
 		return (problem_element(pars), 0);
@@ -63,7 +64,7 @@ int	*pars_color(t_pars *pars, char *line, int i)
 		if (!line[i] || line[i] == '\n')
 			break;
 		if (ft_isdigit(line[i]) && pars->counter < 3 && pars->flag == 0)
-			i = i + get_nmbr(pars, arry, line, i);
+			i = i + get_nbr(pars, arry, line, i);
 		else if (line[i] == ',' && pars->counter < 3 && pars->flag == 1)
 			pars->flag = 0;
 		else if (line[i] != ' ' && line[i] != ','

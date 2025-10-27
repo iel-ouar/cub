@@ -8,13 +8,17 @@ SRCS = main.c\
 		manage_player.c\
 		manage_mlx_loops_and_hooks.c\
 		event_handlers.c\
-		tools.c\
 		drawings.c\
-		 main.c	split.c	tools.c	tools2.c \
-		./get_next_line/get_next_line.c	\
-		./get_next_line/get_next_line_utils.c \
-		./parsing/check_info.c	./parsing/pars_color.c	./parsing/pars_element.c \
-		./parsing/pars_map2.c	./parsing/pars_map.c	./parsing/read_file.c tools1.c
+		split.c	tools.c	tools2.c tools1.c\
+		./get_next_line/get_next_line.c\
+		./get_next_line/get_next_line_utils.c\
+		./parsing/pars_and_initial.c\
+		./parsing/color_element.c\
+		./parsing/direction_element.c\
+		./parsing/check_data.c\
+		./parsing/check_data_tools.c\
+		./parsing/read_file.c\
+		./parsing/clean_work.c
 OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 $(NAME): $(OBJS)

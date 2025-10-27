@@ -46,7 +46,7 @@ bool	is_wall(double y, double x, t_map *map)
 	mapY = (int)y/BLOCK;
 	mapX = (int)x/BLOCK;
 	if (mapY < 0 || mapY > map->map_h
-	   || mapX < 0 || mapX > map->map_w)
+	   || mapX < 0 || mapX > map->map_w[mapY])
 		return (true);
 	if (map->map[mapY][mapX] == '1')
 		return (true);

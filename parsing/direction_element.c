@@ -1,32 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pars_element.c                                     :+:      :+:    :+:   */
+/*   direction_element.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 11:33:21 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/25 22:01:59 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/27 19:56:26 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
-
-int	is_path(char *str)
-{
-	int	i;
-
-	i = 0;	
-	if (str[i] == '/')
-		return (1);
-	else if (str[i] == '.')
-	{
-		i++;
-		if (str[i] == '/')
-			return (1);
-	}
-	return (0);
-}
 
 int	get_len(char *str)
 {
@@ -65,10 +49,7 @@ void	pars_directions(t_pars *pars, char *line, char c, int i)
 		i++;
 	if (!line[i] || line[i] == '\n')
 		return (problem_element(pars));
-	if (is_path(line + i))
-		add_path_element(pars, line + i, c, next_c);
-	else
-		pars->count_element = -1;
+	add_path_element(pars, line + i, c, next_c);
 }
 
 void	direction_element(t_pars *pars, char *line, char c)

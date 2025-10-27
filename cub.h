@@ -10,7 +10,7 @@
 #include <stdbool.h>
 #include <math.h>
 #include <limits.h>
-#include "parsing.h"
+#include "parsing/parsing.h"
 
 // math macros
 #define EPS 1e-9

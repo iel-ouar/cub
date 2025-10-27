@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 11:42:59 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/25 22:01:15 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/27 18:24:23 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ int	get_fd(char *str)
 	return (fd);
 }
 
-int	count_height(char **str)
-{
-	int	i;
+// int	count_height(char **str)
+// {
+// 	int	i;
 	
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
+// 	i = 0;
+// 	while (str[i])
+// 		i++;
+// 	return (i);
+// }

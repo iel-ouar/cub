@@ -1,15 +1,15 @@
 #include "cub.h"
 
-void	init_player(t_player *player, t_map *map)
-{
-	player->y = BLOCK; 
-	player->x = BLOCK;
-	player->angle = 320;
-	player->rotation = 0.6;
-	player->steps = 1;
-	player->map = map;
-	ft_bzero(&player->btn, sizeof(t_btn));
-}
+// void	init_player(t_player *player, t_map *map)
+// {
+// 	player->y = BLOCK; 
+// 	player->x = BLOCK;
+// 	player->angle = 320;
+// 	player->rotation = 0.6;
+// 	player->steps = 1;
+// 	player->map = map;
+// 	ft_bzero(&player->btn, sizeof(t_btn));
+// }
 
 
 void	rotate_player_view(t_player *player, t_btn *btn)

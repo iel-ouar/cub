@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 11:27:25 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/25 22:02:09 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/27 19:26:07 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	check_new_line(char *str, t_pars *pars)
 
 	i = 0;
 	flag = 0;
+	if (str[0] == '\0')
+		ft_free_pars(pars, "Error\nMap is Empty !!\n");
 	while (str[i])
 	{
 		if (str[i] != '\n' && flag == 0)
@@ -44,13 +46,14 @@ void	add_element(t_pars *pars, char *line)
 		i++;
 	if ((line[i] == 'F' || line[i] == 'C') && (line[i + 1] == ' '))
 		color_element(pars, line + i + 1, line[i]);
-	else if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
+	else if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E'
+		|| line[i] == 'W')
 		direction_element(pars, line + i + 1, line[i]);
 	else
 		problem_element(pars);
 }
 
-void	initial_element(int fd, t_pars *pars)
+void	get_elements(int fd, t_pars *pars)
 {
 	char	*line;
 
@@ -81,12 +84,11 @@ char	**read_file(int fd, t_pars *pars)
 	char	*all_lines;
 	char	*tmp;
 
-	initial_element(fd, pars);
+	get_elements(fd, pars);
 	if (pars->count_element != 6)
 		ft_free_pars(pars, "Error\nIncorrect element !!\n");
 	line = "";
 	all_lines = "";
-	pars->flag = 0;
 	while (line)
 	{
 		line = get_next_line(fd);
@@ -101,7 +103,5 @@ char	**read_file(int fd, t_pars *pars)
 	free(line);
 	close(fd);
 	check_new_line(all_lines, pars);
-	if (all_lines[0] == '\0')
-		ft_free_pars(pars, "Error\nMap is not Valid !\n");
 	return (ft_split(all_lines, '\n'));
 }
