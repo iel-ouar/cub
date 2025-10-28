@@ -1,20 +1,22 @@
 #include "cub.h"
 
 
-int key_press(int keycode, t_btn *btn)
+int key_press(int keycode, t_game *game)
 {
 	if (keycode == W)
-		btn->btn_w = true;
+		game->player.btn.btn_w = true;
 	else if (keycode == A)
-		btn->btn_a = true;
+		game->player.btn.btn_a = true;
 	else if (keycode == S)
-		btn->btn_s = true;
+		game->player.btn.btn_s = true;
 	else if (keycode == D)
-		btn->btn_d = true;
+		game->player.btn.btn_d = true;
 	else if (keycode == L)
-		btn->btn_l = true;
+		game->player.btn.btn_l = true;
 	else if (keycode == R)
-		btn->btn_r = true;
+		game->player.btn.btn_r = true;
+	else if (keycode == ESC)
+		close_game (game);
 	return (0);
 }
 

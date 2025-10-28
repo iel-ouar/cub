@@ -31,7 +31,7 @@
 #define D 100
 #define L 65361
 #define R 65363
-
+#define ESC 65307
 
 
 // horizontal wall struct
@@ -79,7 +79,7 @@ typedef struct s_ray
 // void	init_player(t_player *player, t_map *map);
 void    ft_bzero(void *s, size_t n);
 void	manage_mlx_loops_and_hooks(t_game *game);
-int     key_press(int keycode, t_btn *btn);
+int     key_press(int keycode, t_game *game);
 int     key_release(int keycode, t_btn *btn);
 int		draw_loop(t_game *game);
 bool	check_pressing(t_btn *btn);
