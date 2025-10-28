@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 11:44:44 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/28 19:36:48 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/28 20:05:38 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	get_the_angle(char c)
 		return (270);
 	else if (c == 'W')
 		return (180);
-	return (0);
+	return (360);
 }
 
 void	init_game(t_game *game, t_pars pars)

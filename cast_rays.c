@@ -56,8 +56,10 @@ void cast_rays(t_game *game, t_player *player, t_map *map)
 	init_ray_struct(&ray, player);
 	while (ray.count < WIDTH)
 	{
-		ray.hor.dis = find_horizontal_wall(&ray, player, map);
-		ray.ver.dis = find_vertical_wall(&ray, player, map);
+		if (ray.angle != 0 && ray.angle != 180)
+			ray.hor.dis = find_horizontal_wall(&ray, player, map);
+		if (ray.angle != 90 && ray.angle != 270)
+			ray.ver.dis = find_vertical_wall(&ray, player, map);
 		if (ray.hor.dis <= ray.ver.dis)
 			draw_wall(game, &ray, ray.hor.dis, ray.hor.color);
 		else

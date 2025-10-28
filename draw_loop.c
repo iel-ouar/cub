@@ -22,8 +22,8 @@ void	draw_floor_and_seeling(t_game *game)
 
 int	draw_loop(t_game *game)
 {
-	if (!check_pressing(&game->player.btn))
-		return (0);
+	// if (!check_pressing(&game->player.btn))
+	// 	return (0);
 	clear_frame(&game->image);
 	move_player(&game->player, game->map.map);
 	// db_draw_map_and_player(game);
