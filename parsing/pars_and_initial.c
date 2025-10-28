@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 11:44:44 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/27 19:45:17 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/28 16:29:47 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,16 @@ int	get_textures(t_game *game, t_pars pars)
 	game->textures.east = load_img(pars.east_tex, game->mlx);
 	if (game->textures.east.valid == -1)
 		return (-1);
+	game->window = mlx_new_window(game->mlx, WIDTH, HEIGHT, "CUB3D");
+	if (!game->window)
+		return (-1);
+	game->image.img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	if (!game->image.img)
+		return (-1);
+	game->image.addr = mlx_get_data_addr(game->image.img, &game->image.bpp,
+		&game->image.size_line, &game->image.endian);
+	if (!game->image.addr)
+		return (-1);
 	return (0);
 }
 
@@ -58,11 +68,9 @@ int	get_the_angle(char c)
 	return (0);
 }
 
-void	full_info(t_game *game, t_pars pars)
+void	init_game(t_game *game, t_pars pars)
 {
-	int	i;
-
-	i = 0;
+	pars.flag = 0;
 	game->map.map = pars.map;
 	game->map.map_h = pars.counter;
 	game->map.map_w = malloc((game->map.map_h + 1) * sizeof(int));
@@ -71,10 +79,10 @@ void	full_info(t_game *game, t_pars pars)
 		destroy_images_tex(game);
 		ft_free_pars(&pars, "Error\nMalloc failed !\n");
 	}
-	while (i < game->map.map_h)
+	while (pars.flag < game->map.map_h)
 	{
-		game->map.map_w[i] = ft_strlen(game->map.map[i]);
-		i++;
+		game->map.map_w[pars.flag] = ft_strlen(game->map.map[pars.flag]);
+		pars.flag++;
 	}
 	game->ceiling_colr = pars.ceiling_colr;
 	game->floor_colr = pars.floor_colr;
@@ -102,7 +110,7 @@ int	pars_and_initial(char *av, t_game *game)
 		destroy_images_tex(game);
 		ft_free_pars(&pars, "Error\nTextures is Not valid !!\n");
 	}
-	full_info(game, pars);
+	init_game(game, pars);
 	game->player.map = &game->map;
 	ft_bzero(&game->player.btn, sizeof(t_btn));
 	return (0);

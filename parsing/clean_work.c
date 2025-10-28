@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 11:41:49 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/27 19:17:36 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/28 16:33:48 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ void	destroy_images_tex(t_game *game)
 		mlx_destroy_image(game->mlx, game->textures.west.img);
 	if (game->textures.east.img)
 		mlx_destroy_image(game->mlx, game->textures.east.img);
+	if (game->image.img)
+		mlx_destroy_image(game->mlx, game->image.img);
+	if (game->window)
+		mlx_destroy_window(game->mlx, game->window);
 	mlx_destroy_display(game->mlx);
 	free(game->mlx);
 }

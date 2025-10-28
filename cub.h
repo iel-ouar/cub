@@ -74,9 +74,9 @@ typedef struct s_ray
 
 
 // helper functions declarations 
-void	init_game(t_game *game, t_image *image);
-void	init_map(t_map *map);
-void	init_player(t_player *player, t_map *map);
+// void	init_game(t_game *game, t_image *image);
+// void	init_map(t_map *map);
+// void	init_player(t_player *player, t_map *map);
 void    ft_bzero(void *s, size_t n);
 void	manage_mlx_loops_and_hooks(t_game *game);
 int     key_press(int keycode, t_btn *btn);

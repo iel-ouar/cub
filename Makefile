@@ -3,7 +3,6 @@ CFLAGS = -Wall -Wextra -Werror -Iminilibx-linux -g3 -fsanitize=address
 SRCS = main.c\
 		cast_rays.c\
 		draw_loop.c\
-		init_game.c\
 		manage_map.c\
 		manage_player.c\
 		manage_mlx_loops_and_hooks.c\
