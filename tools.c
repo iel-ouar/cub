@@ -43,12 +43,10 @@ void	init_ray_struct(t_ray *ray, t_player *player)
 bool	is_wall(double y, double x, t_map *map)
 {
 	int (mapY), (mapX);
-	mapY = (int)y/BLOCK;
-	mapX = (int)x/BLOCK;
-	if (mapY < 0 || mapY > map->map_h
-	   || mapX < 0 || mapX > map->map_w[mapY])
+	mapY = (int)(y/BLOCK);
+	mapX = (int)(x/BLOCK);
+	if (mapY < 0 || mapY >= map->map_h
+	   || mapX < 0 || mapX >= map->map_w[mapY])
 		return (true);
-	if (map->map[mapY][mapX] == '1')
-		return (true);
-	return (false);
+	return (map->map[mapY][mapX] == '1');
 }

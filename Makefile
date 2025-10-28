@@ -1,5 +1,5 @@
 NAME = cub3D
-CFLAGS = -Wall -Wextra -Werror -Iminilibx-linux # -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -Iminilibx-linux  -g3 #-fsanitize=address
 SRCS = main.c\
 		cast_rays.c\
 		draw_loop.c\
