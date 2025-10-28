@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 11:41:49 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/28 16:33:48 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/28 17:18:02 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,24 @@ void	ft_free_pars(t_pars *pars, char *str)
 	if (pars->west_tex)
 		free(pars->west_tex);
 	error_case(str);
+}
+
+void	free_game_data(t_game *game)
+{
+	if (game->map.map)
+		ft_free_map(game->map.map);
+	if (game->map.map_w)
+		free(game->map.map_w);
+	if (game->ceiling_colr)
+		free(game->ceiling_colr);
+	if (game->floor_colr)
+		free(game->floor_colr);
+	if (game->textures.east.path)
+		free(game->textures.east.path);
+	if (game->textures.north.path)
+		free(game->textures.north.path);
+	if (game->textures.west.path)
+		free(game->textures.west.path);
+	if (game->textures.south.path)
+		free(game->textures.south.path);
 }

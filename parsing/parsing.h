@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:04:28 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/27 20:08:55 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/28 17:22:27 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,6 @@ void	error_case(char *str);
 int		get_fd(char *str);
 int		check_name(char *str);
 int		check_data(t_pars *pars);
-void	full_info(t_game *game, t_pars pars);
 int		pars_and_initial(char *av, t_game *game);
 void	color_element(t_pars *pars, char *line, char c);
 void	direction_element(t_pars *pars, char *line, char c);
@@ -136,6 +135,7 @@ void	ft_free_pars(t_pars *pars, char *str);
 void	ft_free_map(char **str);
 size_t	ft_strslen(char **str);
 void	destroy_images_tex(t_game *game);
-
+void	free_game_data(t_game *game);
+int		close_game(t_game *game);
 
 #endif

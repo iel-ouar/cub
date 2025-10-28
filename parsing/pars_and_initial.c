@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 11:44:44 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/28 16:29:47 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/28 17:09:38 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ t_image	load_img(char *path, void *ptr_mlx)
 
 int	get_textures(t_game *game, t_pars pars)
 {
-	game->mlx = mlx_init();
 	game->textures.north = load_img(pars.north_tex, game->mlx);
 	if (game->textures.north.valid == -1)
 		return (-1);
@@ -105,6 +104,9 @@ int	pars_and_initial(char *av, t_game *game)
 	pars.map = read_file(fd, &pars);
 	if (check_data(&pars) == -1)
 		ft_free_pars(&pars, "Error\nIncorrect argument in File !!\n");
+	game->mlx = mlx_init();
+	if (!game->mlx)
+		ft_free_pars(&pars, "Error\nConnection faild\n");
 	if (get_textures(game, pars) == -1)
 	{
 		destroy_images_tex(game);
