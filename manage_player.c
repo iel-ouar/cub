@@ -1,16 +1,5 @@
 #include "cub.h"
 
-// void	init_player(t_player *player, t_map *map)
-// {
-// 	player->y = BLOCK; 
-// 	player->x = BLOCK;
-// 	player->angle = 320;
-// 	player->rotation = 0.6;
-// 	player->steps = 1;
-// 	player->map = map;
-// 	ft_bzero(&player->btn, sizeof(t_btn));
-// }
-
 
 void	rotate_player_view(t_player *player, t_btn *btn)
 {
@@ -21,14 +10,28 @@ void	rotate_player_view(t_player *player, t_btn *btn)
 	player->angle = circular_value(player->angle, 360);
 }
 
+bool	is_valid_move(char **map, double map_y, double map_x)
+{
+	int y;
+	int x;
+	int safety;
+
+	y = (int)map_y;
+	x = (int)map_x;
+	safety = 5;
+	if (map[(y-safety)/BLOCK][(x)/BLOCK] != '1'
+		&& map[(y+safety)/BLOCK][(x)/BLOCK] != '1'
+		&& map[(y)/BLOCK][(x-safety)/BLOCK] != '1'
+		&& map[(y)/BLOCK][(x+safety)/BLOCK] != '1')
+		return (true);
+	return (false);
+}
 
 
 double move_on_axis(t_player *player, double value, char axis, char **map)
 {
 	double y;
 	double x;
-	int map_y;
-	int map_x;
 
 	y = player->y;
 	x = player->x;
@@ -36,9 +39,7 @@ double move_on_axis(t_player *player, double value, char axis, char **map)
 		y = player->y + value*player->steps;
 	else
 		x = player->x + value*player->steps;
-	map_y = y/BLOCK;
-	map_x = x/BLOCK;
-	if (map[map_y][map_x] != '1')
+	if (is_valid_move(map, y, x))
 	{
 		if (axis == 'y')
 			return (y);

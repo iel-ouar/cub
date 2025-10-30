@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdriouec <sdriouec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:04:28 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/28 17:22:27 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/29 19:46:24 by sdriouec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,5 +137,5 @@ size_t	ft_strslen(char **str);
 void	destroy_images_tex(t_game *game);
 void	free_game_data(t_game *game);
 int		close_game(t_game *game);
-
+void get_player_coord(char **map, t_player *player, double _y, double _x);
 #endif

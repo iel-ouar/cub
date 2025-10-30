@@ -21,7 +21,7 @@
 //  window config
 #define WIDTH 1024.0
 #define HEIGHT 512.0
-#define BLOCK 64.0
+#define BLOCK 64
 
 
 // keycodes

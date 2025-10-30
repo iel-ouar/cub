@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_and_initial.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdriouec <sdriouec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 11:44:44 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/28 20:05:38 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/29 19:46:32 by sdriouec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	get_the_angle(char c)
 	return (360);
 }
 
+
+
 void	init_game(t_game *game, t_pars pars)
 {
 	pars.flag = 0;
@@ -85,8 +87,7 @@ void	init_game(t_game *game, t_pars pars)
 	}
 	game->ceiling_colr = pars.ceiling_colr;
 	game->floor_colr = pars.floor_colr;
-	game->player.x = pars.x_player * BLOCK;
-	game->player.y = pars.y_player * BLOCK;
+	get_player_coord(game->map.map, &game->player, pars.y_player, pars.x_player);
 	game->player.angle = get_the_angle(pars.player_dir);
 	game->player.rotation = 0.6;
 	game->player.steps = 1;

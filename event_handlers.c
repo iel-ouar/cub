@@ -22,7 +22,7 @@ int key_press(int keycode, t_game *game)
 
 int key_release(int keycode, t_btn *btn)
 {
-if (keycode == W)
+	if (keycode == W)
 		btn->btn_w = false;
 	else if (keycode == A)
 		btn->btn_a = false;
