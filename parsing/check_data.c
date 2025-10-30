@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 18:17:25 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/27 20:14:11 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/30 11:10:16 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,12 @@ int	check_color_nbrs(t_pars *pars)
 	return (0);
 }
 
-int	check_data(t_pars *pars)
+void	check_data(t_pars *pars)
 {
 	if (check_color_nbrs(pars) == -1)
-		return (-1);
+		ft_free_pars(pars, "Error\nInvalid value in configuration !\n");
 	if (check_map_element(pars) == -1)
-		return (-1);
+		ft_free_pars(pars, "Error\nInvalid character or element in map !\n");
 	if (check_map_body(pars) == -1)
-		return (-1);
-	return (0);
+		ft_free_pars(pars, "Error\nMap not closed or surrounded by walls\n");
 }

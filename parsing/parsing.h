@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdriouec <sdriouec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:04:28 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/29 19:46:24 by sdriouec         ###   ########.fr       */
+/*   Updated: 2025/10/30 11:04:22 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 typedef struct s_pars
 {
+	int		fd;
 	int		flag;
 	int		counter;
 	int		count_element;
@@ -121,7 +122,7 @@ void	error_case(char *str);
 // parsing_functions ****************
 int		get_fd(char *str);
 int		check_name(char *str);
-int		check_data(t_pars *pars);
+void	check_data(t_pars *pars);
 int		pars_and_initial(char *av, t_game *game);
 void	color_element(t_pars *pars, char *line, char c);
 void	direction_element(t_pars *pars, char *line, char c);
@@ -130,12 +131,12 @@ int		is_player(char c);
 int		is_player_or_0(char c);
 int		is_not_element(char c);
 void	problem_element(t_pars *pars);
-char	**read_file(int fd, t_pars *pars);
+char	**read_file(t_pars *pars);
 void	ft_free_pars(t_pars *pars, char *str);
 void	ft_free_map(char **str);
 size_t	ft_strslen(char **str);
 void	destroy_images_tex(t_game *game);
 void	free_game_data(t_game *game);
 int		close_game(t_game *game);
-void get_player_coord(char **map, t_player *player, double _y, double _x);
+void 	get_player_coord(char **map, t_player *player, double _y, double _x);
 #endif

@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 11:41:49 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/28 17:18:02 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/30 10:40:25 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	ft_free_pars(t_pars *pars, char *str)
 		free(pars->south_tex);
 	if (pars->west_tex)
 		free(pars->west_tex);
+	close(pars->fd);
 	error_case(str);
 }
 

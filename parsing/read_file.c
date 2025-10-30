@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 11:27:25 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/27 19:26:07 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/30 11:08:30 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	check_new_line(char *str, t_pars *pars)
 	i = 0;
 	flag = 0;
 	if (str[0] == '\0')
-		ft_free_pars(pars, "Error\nMap is Empty !!\n");
+		ft_free_pars(pars, "Error\nInvalid or empty map !\n");
 	while (str[i])
 	{
 		if (str[i] != '\n' && flag == 0)
@@ -31,7 +31,7 @@ void	check_new_line(char *str, t_pars *pars)
 		{
 			if (str[0] != '\0')
 				free(str);
-			ft_free_pars(pars, "Error\nMap is not Valid !!\n");
+			ft_free_pars(pars, "Error\nInvalid or empty map !\n");
 		}
 		i++;
 	}
@@ -78,20 +78,20 @@ void	get_elements(int fd, t_pars *pars)
 		line = get_next_line(-2);
 }
 
-char	**read_file(int fd, t_pars *pars)
+char	**read_file(t_pars *pars)
 {
 	char	*line;
 	char	*all_lines;
 	char	*tmp;
 
-	get_elements(fd, pars);
+	get_elements(pars->fd, pars);
 	if (pars->count_element != 6)
-		ft_free_pars(pars, "Error\nIncorrect element !!\n");
+		ft_free_pars(pars, "Error\nInvalid or missing element in configuration !\n");
 	line = "";
 	all_lines = "";
 	while (line)
 	{
-		line = get_next_line(fd);
+		line = get_next_line(pars->fd);
 		if (!line)
 			break ;
 		tmp = all_lines;
@@ -101,7 +101,6 @@ char	**read_file(int fd, t_pars *pars)
 		free (line);
 	}
 	free(line);
-	close(fd);
 	check_new_line(all_lines, pars);
 	return (ft_split(all_lines, '\n'));
 }

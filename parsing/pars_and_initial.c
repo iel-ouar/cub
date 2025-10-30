@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_and_initial.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdriouec <sdriouec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 11:44:44 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/29 19:46:32 by sdriouec         ###   ########.fr       */
+/*   Updated: 2025/10/30 11:07:41 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,24 +96,23 @@ void	init_game(t_game *game, t_pars pars)
 int	pars_and_initial(char *av, t_game *game)
 {
 	t_pars	pars;
-	int		fd;
 
 	if (check_name(av) == 0)
 		return (-1);
-	fd = get_fd(av);
 	ft_bzero(&pars, sizeof(pars));
-	pars.map = read_file(fd, &pars);
-	if (check_data(&pars) == -1)
-		ft_free_pars(&pars, "Error\nIncorrect argument in File !!\n");
+	pars.fd = get_fd(av);
+	pars.map = read_file(&pars);
+	check_data(&pars);
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		ft_free_pars(&pars, "Error\nConnection faild\n");
 	if (get_textures(game, pars) == -1)
 	{
 		destroy_images_tex(game);
-		ft_free_pars(&pars, "Error\nTextures is Not valid !!\n");
+		ft_free_pars(&pars, "Error\nFailed to load texture !\n");
 	}
 	init_game(game, pars);
+	close(pars.fd);
 	game->player.map = &game->map;
 	ft_bzero(&game->player.btn, sizeof(t_btn));
 	return (0);
