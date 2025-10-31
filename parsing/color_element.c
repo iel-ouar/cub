@@ -6,7 +6,7 @@
 /*   By: iel-ouar <iel-ouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 11:35:41 by iel-ouar          #+#    #+#             */
-/*   Updated: 2025/10/27 17:29:12 by iel-ouar         ###   ########.fr       */
+/*   Updated: 2025/10/31 18:09:10 by iel-ouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,9 @@ void	color_element(t_pars *pars, char *line, char c)
 		problem_element(pars);
 		return ;
 	}
-	else if (pars->c == 1)
+	else if (pars->c == 1 && c == 'C')
 		pars->ceiling_colr = pars_color(pars, line, i);
-	else if (pars->f == 1)
+	else if (pars->f == 1 && c == 'F')
 		pars->floor_colr = pars_color(pars, line, i);
 	if (pars->count_element != -1)
 	{
